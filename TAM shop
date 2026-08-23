@@ -1,0 +1,35 @@
+-- สคริปต์นี้ต้องถูกวางไว้ใน ServerScriptService หรือ StarterPlayerScripts
+local Players = game:GetService("Players")
+
+local function onPlayerAdded(player)
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:WaitForChild("Humanoid")
+
+    -- ฟังก์ชันสำหรับปรับความเร็ว
+    local function setSpeed(speed)
+        humanoid.WalkSpeed = speed
+    end
+
+    -- ฟังก์ชันสำหรับปรับความสูงในการกระโดด
+    local function setJumpPower(jumpPower)
+        humanoid.JumpPower = jumpPower
+    end
+
+    -- ฟังก์ชันสำหรับอมตะ (ไม่ตาย)
+    local function makeInvincible(invincible)
+        if invincible then
+            humanoid.Health = math.huge
+        else
+            humanoid.Health = 100
+        end
+    end
+
+    -- ตัวอย่างการใช้งาน
+    setSpeed(500) -- ปรับความเร็วเป็น 500
+    setJumpPower(500) -- ปรับความสูงในการกระโดดเป็น 500
+    makeInvincible(true) -- ทำให้อมตะ
+
+    -- คุณสามารถสร้าง UI หรือ command สำหรับผู้เล่นเพื่อปรับค่าเหล่านี้ได้
+end
+
+Players.PlayerAdded:Connect(onPlayerAdded)
